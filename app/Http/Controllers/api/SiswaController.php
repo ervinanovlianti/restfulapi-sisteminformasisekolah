@@ -66,7 +66,7 @@ class SiswaController extends Controller
     public function show($id)
     {
         try {
-            $siswa = Siswa::with('nilai')->findOrFail($id);
+            $siswa = Siswa::findOrFail($id);
             $response = [
                 $siswa
             ];
@@ -98,6 +98,13 @@ class SiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Siswa::findOrFail($id)->delete();
+            return response()->json(['success' => 'Data Siswa Berhasil Dihapus']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Data Tidak Ditemukan'
+            ]);
+        }
     }
 }
