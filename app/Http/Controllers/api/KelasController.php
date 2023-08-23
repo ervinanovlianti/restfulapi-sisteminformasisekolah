@@ -27,7 +27,6 @@ class KelasController extends Controller
             ];
             return response()->json($error);
         }
-            
     }
 
     /**
@@ -68,7 +67,7 @@ class KelasController extends Controller
     public function show($id)
     {
         try {
-            $kelas = Kelas::with('siswas')->findOrFail($id);
+            $kelas = Kelas::findOrFail($id);
             $response = [
                 $kelas
             ];
@@ -96,7 +95,7 @@ class KelasController extends Controller
                 'tingkat' => 'required'
             ]);
             if ($validator->fails()) {
-                return response()->json(['succeed' => false, 'Message' => $validator->errors()]);
+                return response()->json(['success' => false, 'Message' => $validator->errors()]);
             }
             $kelas->update($request->all());
             $response = [
