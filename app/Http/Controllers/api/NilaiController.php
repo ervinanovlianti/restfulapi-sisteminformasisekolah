@@ -42,7 +42,7 @@ class NilaiController extends Controller
             }
             Nilai::create($request->all());
             $response = [
-                'Success' => 'Kelas Baru Berhasil Dibuat',
+                'Success' => 'Input Nilai Baru Berhasil',
             ];
             return response()->json($response, 201);
         } catch (\Throwable $th) {
@@ -100,7 +100,7 @@ class NilaiController extends Controller
             }
             $nilai->update($request->all());
             $response = [
-                'Success' => 'Nilai Berhasil Diubah'
+                'Success' => 'Data Nilai Berhasil Diubah'
             ];
             return response()->json($response);
         } catch (\Exception $e) {
@@ -120,7 +120,7 @@ class NilaiController extends Controller
     {
         try {
             Nilai::findOrFail($id)->delete();
-            return response()->json(['success' => 'Nilai Berhasil Dihapus']);
+            return response()->json(['success' => 'Data Nilai Berhasil Dihapus']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Data Tidak Ditemukan'

@@ -46,7 +46,7 @@ class SiswaController extends Controller
             }
             Siswa::create($request->all());
             $response = [
-                'Success' => 'Data Siswa Baru Berhasil Dibuat',
+                'Success' => 'Input Data Siswa Baru Berhasil',
             ];
             return response()->json($response, 201);
         } catch (\Throwable $th) {

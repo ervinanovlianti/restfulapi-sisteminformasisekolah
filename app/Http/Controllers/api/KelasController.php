@@ -47,7 +47,7 @@ class KelasController extends Controller
             }
             Kelas::create($request->all());
             $response = [
-                'Success' => 'Kelas Baru Berhasil Dibuat',
+                'Success' => 'Input Data Kelas Baru Berhasil',
             ];
             return response()->json($response, 201);
         } catch (\Throwable $th) {
@@ -99,7 +99,7 @@ class KelasController extends Controller
             }
             $kelas->update($request->all());
             $response = [
-                'Success' => 'Kelas Berhasil Diubah'
+                'Success' => 'Data Kelas Berhasil Diubah'
             ];
             return response()->json($response);
         } catch (\Exception $e) {
@@ -119,7 +119,7 @@ class KelasController extends Controller
     {
         try {
             Kelas::findOrFail($id)->delete();
-            return response()->json(['success' => 'Kelas Berhasil Dihapus']);
+            return response()->json(['success' => 'Data Kelas Berhasil Dihapus']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Data Tidak Ditemukan'
