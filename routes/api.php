@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\KelasController;
 use App\Http\Controllers\api\SiswaController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('kelas', KelasController::class);
-Route::apiResource('siswa', SiswaController::class);
+Route::get('/services', [ServiceController::class, 'index']);
+Route::post('/service', [ServiceController::class, 'store']);
+Route::get('/service/{id}', [ServiceController::class, 'show']);

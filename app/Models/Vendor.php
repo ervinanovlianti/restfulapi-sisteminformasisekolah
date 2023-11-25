@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-
-class Siswa extends Eloquent
+class Vendor extends Eloquent
 {
     use HasFactory;
-    protected $table = 'siswa';
+    protected $table = 'vendors';
+
     protected $fillable = [
-        'nama_siswa',
-        'id_kelas'
+        
     ];
 }

@@ -1,53 +1,52 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers;
 
-use App\Models\Kelas;
-use App\Models\Siswa;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Controller;
-use GuzzleHttp\Psr7\Response;
+use App\Models\Service;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class KelasController extends Controller
+class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         try {
-            $kelas = Kelas::all();
-            return response()->json($kelas);
+            $services = Service::all();
+            $response = [
+                $services
+            ];
+            return response()->json([
+                'status' => 200,
+                'data' => $response
+            ]);
         } catch (\Throwable $th) {
             $error = [
                 'error' => $th->getMessage()
             ];
-            return response()->json($error);
+            return response()->json($error, 500);
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
             $validator = validator::make($request->all(), [
-                'nama_kelas' => 'required',
-                'tingkat' => 'required'
+                "type" => 'required',
+                "vendor" => 'required',
+                "attentionTo" => 'required',
+                "quotationNo" => 'required',
+                "invoice" => 'required',
+                "customer" => 'required',
+                "vendorAddress" => 'required',
+                "noPoCustomer" => 'required',
+                'cost' => 'required'
             ]);
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->errors()]);
             }
-            Kelas::create($request->all());
+            Service::create($request->all());
             $response = [
-                'Success' => 'Input Data Kelas Baru Berhasil',
+                'Success' => 'Input Data Service Berhasil',
             ];
             return response()->json($response, 201);
         } catch (\Throwable $th) {
@@ -58,48 +57,46 @@ class KelasController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try {
-            $kelas = Kelas::findOrFail($id);
+            $services = Service::findOrFail($id);
             $response = [
-                $kelas
+                $services
             ];
-            return response()->json($response);
+            return response()->json([
+                'status' => 200,
+                'data' => $response
+            ]);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Data Tidak Ditemukan'
+                'error' => 'Data Tidak Ditemukan',
+                'status' => 500
             ]);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         try {
-            $kelas = Kelas::findOrFail($id);
+            $service = Service::findOrFail($id);
             $validator = Validator::make($request->all(), [
-                'nama_kelas' => 'required',
-                'tingkat' => 'required'
+                "type" => 'required',
+                "vendor" => 'required',
+                "quotation" => 'required',
+                "invoice" => 'required',
+                "customer" => 'required',
+                "vendorAddress" => 'required',
+                "noPoCustomer" => 'required',
+                'cost' => 'required'
             ]);
             if ($validator->fails()) {
                 return response()->json(['success' => false, 'Message' => $validator->errors()]);
             }
-            $kelas->update($request->all());
+            $service->update($request->all());
             $response = [
-                'Success' => 'Data Kelas Berhasil Diubah'
+                'Success' => 'Data Service Berhasil Diubah'
             ];
             return response()->json($response);
         } catch (\Exception $e) {
@@ -109,16 +106,10 @@ class KelasController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try {
-            Kelas::findOrFail($id)->delete();
+            Vendor::findOrFail($id)->delete();
             return response()->json(['success' => 'Data Kelas Berhasil Dihapus']);
         } catch (\Exception $e) {
             return response()->json([
